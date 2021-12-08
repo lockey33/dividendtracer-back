@@ -13,6 +13,7 @@ router.post('/removeFromWatchlist', userController.removeFromWatchlist);
 router.post('/getUserWatchlist', userController.getUserWatchlist);
 router.post('/addToSearchHistory', userController.addToSearchHistory);
 router.post('/removeFromSearchHistory', userController.removeFromSearchHistory);
+router.post('/getUserSearchHistory', userController.getUserSearchHistory);
 
 module.exports = router;
 
