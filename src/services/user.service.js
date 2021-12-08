@@ -97,36 +97,38 @@ const deleteUserById = async (userId) => {
   return user;
 };
 
-const addToSearchHistory = async (userAddress, tokenAddress, tokenName) => {
+const addToSearchHistory = async (userAddress, tokenAddress, tokenName, symbol) => {
   const user = await getUserByWalletAddress(userAddress);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  if(user.searchHistory.some(item => item.tokenAddress === tokenAddress)) {
+  if(user.searchHistory.some(item => item.address === tokenAddress)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Token already in search history');
   }
   user.searchHistory.push({
-    tokenAddress,
-    tokenName,
+    address: tokenAddress,
+    name: tokenName,
+    symbol: symbol
   });
   await user.save();
-  return user;
+  return user.searchHistory;
 };
   
-const addToWatchlist = async (userAddress, tokenAddress, tokenName) => {
+const addToWatchlist = async (userAddress, tokenAddress, tokenName, symbol) => {
   const user = await getUserByWalletAddress(userAddress);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  if(user.watchlist.some(item => item.tokenAddress === tokenAddress)) {
+  if(user.watchlist.some(item => item.address === tokenAddress)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Token already in watchlist');
   }
   user.watchlist.push({
-    tokenAddress,
-    tokenName,
+    address: tokenAddress,
+    name: tokenName,
+    symbol: symbol
   });
   await user.save();
-  return user;
+  return user.watchlist;
 };
 
 const removeFromWatchlist = async (userAddress, tokenAddress) => {
@@ -134,10 +136,10 @@ const removeFromWatchlist = async (userAddress, tokenAddress) => {
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  let watchlist = user.watchlist.filter(item => item.tokenAddress !== tokenAddress);
+  let watchlist = user.watchlist.filter(item => item.address !== tokenAddress);
   user.watchlist = watchlist;
   await user.save();
-  return user;
+  return user.watchlist;
 }
 
 const removeFromSearchHistory = async (userAddress, tokenAddress) => {
@@ -145,18 +147,28 @@ const removeFromSearchHistory = async (userAddress, tokenAddress) => {
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  let searchHistory = user.searchHistory.filter(item => item.tokenAddress !== tokenAddress);
+  let searchHistory = user.searchHistory.filter(item => item.address !== tokenAddress);
   user.searchHistory = searchHistory;
   await user.save();
-  return user;
+  return user.searchHistory;
 }
 
 const getUserWatchlist = async (userAddress) => { 
-  const user = await getUserByWalletAddress(userAddress);
-  if (!user) {
+  try{
+    let user = await User.findOne({'address': userAddress}, {'watchlist': 1, '_id': 0});
+    return user.watchlist;
+  } catch(err) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  return user.watchlist;
+}
+
+const getUserSearchHistory = async (userAddress) => { 
+  try{
+    let user = await User.findOne({'address': userAddress}, {'searchHistory': 1, '_id': 0});
+    return user.searchHistory;
+  } catch(err) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
 }
 
 module.exports = {
@@ -173,4 +185,5 @@ module.exports = {
   removeFromWatchlist,
   removeFromSearchHistory,
   getUserWatchlist,
+  getUserSearchHistory
 };

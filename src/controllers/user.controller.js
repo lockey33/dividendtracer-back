@@ -23,7 +23,7 @@ const getUserByAddress = catchAsync(async (req, res) => {
 });
 
 const addToSearchHistory = catchAsync(async (req, res) => {
-  const user = await userService.addToSearchHistory(req.body.address, req.body.tokenAddress, req.body.tokenName);
+  const user = await userService.addToSearchHistory(req.body.address, req.body.tokenAddress, req.body.tokenName, req.body.symbol);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
@@ -39,7 +39,7 @@ const removeFromSearchHistory = catchAsync(async (req, res) => {
 });
 
 const addToWatchlist = catchAsync(async (req, res) => {
-  const user = await userService.addToWatchlist(req.body.address, req.body.tokenAddress, req.body.tokenName);
+  const user = await userService.addToWatchlist(req.body.address, req.body.tokenAddress, req.body.tokenName, req.body.symbol);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
@@ -63,6 +63,14 @@ const getUserWatchlist = catchAsync(async (req, res) => {
   res.send(user);
 });
 
+const getUserSearchHistory = catchAsync(async (req, res) => {
+  const user = await userService.getUserSearchHistory(req.body.address);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  res.send(user);
+});
+
 module.exports = {
   createUser,
   getUserByAddress,
@@ -70,5 +78,6 @@ module.exports = {
   addToWatchlist,
   removeFromWatchlist,
   removeFromSearchHistory,
-  getUserWatchlist
+  getUserWatchlist,
+  getUserSearchHistory
 };
