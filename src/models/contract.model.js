@@ -3,7 +3,7 @@ const { toJSON, paginate } = require('./plugins');
 
 const contractSchema = mongoose.Schema(
   {
-    abi: {
+    contractABI: {
       type: JSON,
       required: true,
       trim: true,
@@ -22,6 +22,6 @@ contractSchema.plugin(paginate);
 /**
  * @typedef Contract
  */
-const Contract = mongoose.model('User', contractSchema);
+const Contract = mongoose.model('Contract', contractSchema);
 
 module.exports = Contract;

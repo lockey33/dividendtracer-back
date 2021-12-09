@@ -2,13 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="653e5718-744f-4a07-aca8-a2e14b3dc57b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controllers/contract.controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/contract.model.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/trendingTokens.model.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/v1/contract.route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/contract.service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/coin.controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/v1/coin.route.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/coin.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/contract.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/contract.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/contract.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/contract.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/trendingTokens.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/coin.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/user.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/user.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/v1/contract.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/v1/contract.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/v1/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/v1/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/contract.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/contract.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/user.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/user.service.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +36,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/routes/v1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/controllers" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -41,8 +46,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/routes/v1" />
       <recent name="$PROJECT_DIR$/src/controllers" />
+      <recent name="$PROJECT_DIR$/src/routes/v1" />
       <recent name="$PROJECT_DIR$/src/services" />
       <recent name="$PROJECT_DIR$/src/models" />
       <recent name="$PROJECT_DIR$" />
@@ -56,7 +61,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1638912435835</updated>
-      <workItem from="1638912439453" duration="2497000" />
+      <workItem from="1638912439453" duration="2832000" />
+      <workItem from="1638954591122" duration="9990000" />
     </task>
     <servers />
   </component>
@@ -73,5 +79,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

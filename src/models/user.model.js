@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    rewards: [],
     watchlist: [],
     searchHistory: [],
   },
