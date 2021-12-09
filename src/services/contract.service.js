@@ -1,4 +1,4 @@
-const { Contract } = require('../models');
+const Contract = require('../models/contract.model');
 
 const createContract = async (contractBody) => {
   return Contract.create(contractBody);

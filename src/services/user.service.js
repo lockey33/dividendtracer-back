@@ -12,7 +12,7 @@ const createUser = async (userBody) => {
 };
 
 const userExists = async (userAddress) => {
-  const user = await User.findOne({'address': userAddress});
+  const user = await User.findOne({ address: userAddress });
   console.log(user);
   return !!user;
 };
@@ -41,7 +41,7 @@ const getUserById = async (id) => {
 };
 
 const getUserByWalletAddress = async (userAddress) => {
-  return User.findOne({ 'address': userAddress });
+  return User.findOne({ address: userAddress });
 };
 
 /**
@@ -86,13 +86,12 @@ const deleteUserById = async (userId) => {
   return user;
 };
 
-
 /**
  * Get user by address
  * @param {ObjectId} userAddress
  * @returns {Promise<User>}
  */
- const getUserByAddress = async (userAddress) => {
+const getUserByAddress = async (userAddress) => {
   const user = await getUserByWalletAddress(userAddress);
   return user;
 };
@@ -102,30 +101,31 @@ const addToSearchHistory = async (userAddress, tokenAddress, tokenName, symbol) 
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  if(user.searchHistory.some(item => item.address === tokenAddress)) {
+  // pas besoin d'en sortir une erreur, si ça existe déjà tant mieux
+  /*  if(user.searchHistory.some(item => item.address === tokenAddress)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Token already in search history');
-  }
+  } */
   user.searchHistory.push({
     address: tokenAddress,
     name: tokenName,
-    symbol: symbol
+    symbol,
   });
   await user.save();
   return user.searchHistory;
 };
-  
+
 const addToWatchlist = async (userAddress, tokenAddress, tokenName, symbol) => {
   const user = await getUserByWalletAddress(userAddress);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  if(user.watchlist.some(item => item.address === tokenAddress)) {
+  if (user.watchlist.some((item) => item.address === tokenAddress)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Token already in watchlist');
   }
   user.watchlist.push({
     address: tokenAddress,
     name: tokenName,
-    symbol: symbol
+    symbol,
   });
   await user.save();
   return user.watchlist;
@@ -136,40 +136,47 @@ const removeFromWatchlist = async (userAddress, tokenAddress) => {
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  let watchlist = user.watchlist.filter(item => item.address !== tokenAddress);
+  const watchlist = user.watchlist.filter((item) => item.address !== tokenAddress);
   user.watchlist = watchlist;
   await user.save();
   return user.watchlist;
-}
+};
 
 const removeFromSearchHistory = async (userAddress, tokenAddress) => {
   const user = await getUserByWalletAddress(userAddress);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  let searchHistory = user.searchHistory.filter(item => item.address !== tokenAddress);
+  const searchHistory = user.searchHistory.filter((item) => item.address !== tokenAddress);
   user.searchHistory = searchHistory;
   await user.save();
   return user.searchHistory;
-}
+};
 
-const getUserWatchlist = async (userAddress) => { 
-  try{
-    let user = await User.findOne({'address': userAddress}, {'watchlist': 1, '_id': 0});
+const getUserWatchlist = async (userAddress) => {
+  try {
+    const user = await User.findOne({ address: userAddress }, { watchlist: 1, _id: 0 });
     return user.watchlist;
-  } catch(err) {
+  } catch (err) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-}
+};
 
-const getUserSearchHistory = async (userAddress) => { 
-  try{
-    let user = await User.findOne({'address': userAddress}, {'searchHistory': 1, '_id': 0});
+const getUserSearchHistory = async (userAddress) => {
+  try {
+    const user = await User.findOne({ address: userAddress }, { searchHistory: 1, _id: 0 });
     return user.searchHistory;
-  } catch(err) {
+  } catch (err) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-}
+};
+
+//TODO créer nouvel objet reward si il existe pas,ou update celui qui existe déjà
+const updateRewards = async (userAddress, coin) => {
+  const user = await User.findOne({ address: userAddress });
+  user.rewards = { tokenAddress: coin.tokenAddress, globalReward: coin.globalReward, todayReward: coin.todayReward };
+  user.save();
+};
 
 module.exports = {
   createUser,
@@ -185,5 +192,6 @@ module.exports = {
   removeFromWatchlist,
   removeFromSearchHistory,
   getUserWatchlist,
-  getUserSearchHistory
+  getUserSearchHistory,
+  updateRewards,
 };
