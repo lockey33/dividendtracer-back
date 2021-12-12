@@ -1,7 +1,8 @@
 const Coin = require('../models/coin.model');
 
 const createCoin = async (coinBody) => {
-  return Coin.create(coinBody);
+  let coin = { tokenAddress: coinBody.tokenAddress, increment: coinBody.increment };
+  return Coin.create(coin);
 };
 
 const coinExists = async (coinAddress, wallet) => {
