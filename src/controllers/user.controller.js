@@ -6,12 +6,11 @@ const { userService } = require('../services');
 
 const createUser = catchAsync(async (req, res) => {
   try{
+    console.log(req.body)
     const userExist = await userService.userExists(req.body.address);
     if(!userExist){
       const user = await userService.createUser(req.body);
       res.status(httpStatus.CREATED).send(user);
-    }else{
-      throw new ApiError('User already exists');
     }
   }catch(err){
    console.log(err);
@@ -23,7 +22,7 @@ const getUserByAddress = catchAsync(async (req, res) => {
     const user = await userService.getUserByAddress(req.body.address);
     res.send(user);
   }catch(err){
-    console.log(err)
+    console.log(err);
   }
 });
 
