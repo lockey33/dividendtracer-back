@@ -10,12 +10,13 @@ const createContract = catchAsync(async (req, res) => {
     res.status(httpStatus.CREATED).send(contract);
   } else {
     console.log(`Contract already exists`);
+    return;
   }
 });
 
 const getContractByAddress = catchAsync(async (req, res) => {
   const contract = await contractService.getContractByAddress(req.params.tokenAddress);
-  res.send(contract);
+  res.status(200).send(contract);
 });
 
 module.exports = {

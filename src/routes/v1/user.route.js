@@ -6,8 +6,8 @@ const userController = require('../../controllers/user.controller');
 
 const router = express.Router();
 
-router.get('/getUserByAddress', validate(userValidation.getUserByAddress), userController.getUserByAddress);
-router.post('/createUser', validate(userValidation.createUser), userController.createUser);
+router.get('/getUserByAddress', userController.getUserByAddress);
+router.post('/createUser', userController.createUser);
 router.post('/addToWatchlist', userController.addToWatchlist);
 router.post('/removeFromWatchlist', userController.removeFromWatchlist);
 router.post('/getUserWatchlist', userController.getUserWatchlist);

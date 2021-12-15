@@ -1,12 +1,6 @@
 const Joi = require('joi');
 const { password, objectId } = require('./custom.validation');
 
-const createUser = {
-  body: Joi.object().keys({
-    address: Joi.string().required(),
-  }),
-};
-
 const getUsers = {
   query: Joi.object().keys({
     name: Joi.string(),
@@ -49,7 +43,6 @@ const getUserByAddress = {
 };
 
 module.exports = {
-  createUser,
   getUsers,
   getUser,
   updateUser,
