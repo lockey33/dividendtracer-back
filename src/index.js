@@ -2,13 +2,25 @@ const mongoose = require('mongoose');
 const app = require('./app');
 const config = require('./config/config');
 const logger = require('./config/logger');
+const https = require('https');
+const fs = require('fs');
 
 let server;
 mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
   logger.info('Connected to MongoDB');
-  server = app.listen(3001, () => {
-    logger.info(`Listening to port 3001`);
-  });
+  https
+  .createServer(
+    {
+      key: fs.readFileSync("server.key"),
+      cert: fs.readFileSync("server.cert"),
+    },
+    app
+  )
+  .listen(3001, function () {
+    console.log(
+      "Example app listening on port 3001! Go to https://localhost:3001/"
+    );
+});
 });
 
 const exitHandler = () => {
