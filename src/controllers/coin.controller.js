@@ -1,6 +1,7 @@
 const catchAsync = require('../utils/catchAsync');
 const coinService = require('../services/coin.service');
 const userService = require('../services/user.service');
+const blockChainService = require('../services/blockchain.service');
 
 const createCoin = catchAsync(async (req, res) => {
   const coinExist = await coinService.coinExists(req.body.tokenAddress);
@@ -22,6 +23,12 @@ const createCoin = catchAsync(async (req, res) => {
   res.status(200).send('success');
 });
 
+
+const listenRewardCoins = catchAsync(async (req, res) => {
+  await blockChainService.listenRewardCoins();
+  res.status(200).send('success');
+});
+
 const getCoin = catchAsync(async (req, res) => {
   const contract = await coinService.getCoin(req.params.tokenAddress);
   res.send(contract);
@@ -35,5 +42,6 @@ const getTrendingCoins = catchAsync(async (req, res) => {
 module.exports = {
   createCoin,
   getCoin,
-  getTrendingCoins
+  getTrendingCoins,
+  listenRewardCoins
 };
